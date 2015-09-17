@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SimpleInjector.AssemblyScanner</id>
+    <version>$version$</version>
+    <title>SimpleInjector AssemblyScanner</title>
+    <authors>Jeroen Pot</authors>
+    <owners>Jeroen Pot</owners>
+    <projectUrl>https://github.com/jeroenpot/SimpleInjector-AssemblyScanner</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Static helper class for scanning of assembly and automatic registration of classes and interfaces in the SimpleInjector container.
+    </description>
+    <copyright>Copyright 2015</copyright>
+    <tags>SimpleInjector,auto,autoscan,autoregister</tags>
+  </metadata>
+</package>

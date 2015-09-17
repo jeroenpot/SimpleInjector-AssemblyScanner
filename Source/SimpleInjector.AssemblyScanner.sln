@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40418.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScanner", "SimpleInjector.AssemblyScanner\SimpleInjector.AssemblyScanner.csproj", "{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScanner.UnitTests", "SimpleInjector.AssemblyScanner.UnitTests\SimpleInjector.AssemblyScanner.UnitTests.csproj", "{3904428D-7126-457A-BF03-EC5CF6FECFCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
