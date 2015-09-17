@@ -13,10 +13,10 @@
     </description>
     <copyright>Copyright 2015</copyright>
     <tags>SimpleInjector,auto,autoscan,autoregister</tags>
+    <dependencies>
+      <group>
+        <dependency id="SimpleInjector" version="2.0.0" />
+      </group>
+    </dependencies>
   </metadata>
-  <dependencies>
-    <group>
-      <dependency id="SimpleInjector" version="2.0.0" />
-    </group>
-  </dependencies>
 </package>
