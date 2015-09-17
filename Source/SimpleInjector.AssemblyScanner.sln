@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScanner.UnitTests", "SimpleInjector.AssemblyScanner.UnitTests\SimpleInjector.AssemblyScanner.UnitTests.csproj", "{3904428D-7126-457A-BF03-EC5CF6FECFCF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA3395D3-2040-4C0F-AAD0-67ACF37862A4}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
