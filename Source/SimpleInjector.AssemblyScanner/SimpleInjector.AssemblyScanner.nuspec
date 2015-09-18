@@ -14,7 +14,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>SimpleInjector,auto,autoscan,autoregister,assemblyscanner</tags>
     <dependencies>
-      <dependency id="SimpleInjector" allowedVersions="[2.0.0" />
+      <dependency id="SimpleInjector" />
     </dependencies>
   </metadata>
 </package>
