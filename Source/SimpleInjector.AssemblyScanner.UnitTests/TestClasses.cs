@@ -51,4 +51,17 @@
     public interface IHasMultipleImplementations
     {
     }
+
+    public interface IThatHasConcreteImplementationWithConstructorArgument
+    {
+    }
+
+    public class ConstructorArgumentString : IThatHasConcreteImplementationWithConstructorArgument
+    {
+        // ReSharper disable once UnusedParameter.Local
+        public ConstructorArgumentString(string someString)
+        {
+            
+        }
+    }
 }
