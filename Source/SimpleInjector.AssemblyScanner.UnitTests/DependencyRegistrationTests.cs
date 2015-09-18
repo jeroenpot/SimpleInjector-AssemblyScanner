@@ -8,7 +8,7 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
     [TestFixture]
     public class DependencyRegistrationTests
     {
-        private readonly IList<Type> _ignoreList = new List<Type> { typeof(CDCLass), typeof(IHasMultipleImplementations), typeof(IBClass), typeof(IThatHasConcreteImplementationWithConstructorArgument) };
+        private readonly IList<Type> _ignoreList = new List<Type> { typeof(CDCLass), typeof(IHasMultipleImplementations), typeof(IBClass) };
 
         [Test]
         public void ShouldRegisterClasses()
@@ -111,15 +111,6 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
 
             Assert.That(() => DependencyRegistration.Register(container, null),
                 Throws.Exception.TypeOf<ArgumentNullException>());
-        }
-
-        [Test]
-        public void ShouldIgnoreAlreadyRegisterdInterface()
-        {
-            var ignoreList = new List<Type>(_ignoreList);
-            ignoreList.Remove(typeof (IThatHasConcreteImplementationWithConstructorArgument));
-            var container = new Container();
-            DependencyRegistration.Register(container, this.GetType().Assembly, ignoreList.ToArray());
         }
     }
 }
