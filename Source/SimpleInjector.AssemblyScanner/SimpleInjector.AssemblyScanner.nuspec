@@ -12,7 +12,7 @@
       Static helper class for scanning of assembly and automatic registration of classes and interfaces in the SimpleInjector container.
     </description>
     <copyright>Copyright 2015</copyright>
-    <tags>SimpleInjector,auto,autoscan,autoregister</tags>
+    <tags>SimpleInjector,auto,autoscan,autoregister,assemblyscanner</tags>
     <dependencies>
       <group>
         <dependency id="SimpleInjector" version="2.0.0" />
