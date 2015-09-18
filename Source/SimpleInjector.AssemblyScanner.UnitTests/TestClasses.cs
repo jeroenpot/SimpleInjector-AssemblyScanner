@@ -66,4 +66,25 @@
             SomeString = someString;
         }
     }
+
+    public class ClassOfInterfaceT : IInterfaceOfT
+    {
+        public ClassOfInterfaceT(int i)
+        {
+            
+        }
+    }
+
+    public interface IInterfaceOfT : IBaseInterface<SomeObject>
+    {
+    }
+
+    public interface IBaseInterface<T>
+    {
+    }
+
+    public class SomeObject
+    {
+
+    }
 }

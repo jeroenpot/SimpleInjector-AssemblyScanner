@@ -8,7 +8,16 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
     [TestFixture]
     public class DependencyRegistrationTests
     {
-        private readonly IList<Type> _ignoreList = new List<Type> { typeof(CDCLass), typeof(IHasMultipleImplementations), typeof(IBClass) };
+        private readonly IList<Type> _ignoreList = new List<Type>
+        {
+            typeof (CDCLass),
+            typeof (IHasMultipleImplementations),
+            typeof (IBClass),
+            typeof (IThatHasConcreteImplementationWithConstructorArgument),
+            typeof (IInterfaceOfT),
+            typeof (ClassOfInterfaceT)
+
+        };
 
         [Test]
         public void ShouldRegisterClasses()
@@ -33,7 +42,7 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
             }
             catch (DependencyConfigurationException dependencyConfigurationException)
             {
-                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(3));
+                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(4));
             }
         }
 
@@ -72,7 +81,7 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
             var container = new Container();
 
             var ignoreList = new List<Type>(_ignoreList);
-            ignoreList.Remove(typeof (IHasMultipleImplementations));
+            ignoreList.Remove(typeof(IHasMultipleImplementations));
             ignoreList.Add(typeof(FirstImplementation));
 
             DependencyRegistration.Register(container, typeof(DependencyRegistrationTests).Assembly, ignoreList.ToArray());
@@ -88,11 +97,11 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
 
             try
             {
-                DependencyRegistration.Register(container, typeof(DependencyRegistrationTests).Assembly, typeof(DontRegisterMe), typeof(IDontRegisterMe), typeof(IHasMultipleImplementations));
+                DependencyRegistration.Register(container, typeof(DependencyRegistrationTests).Assembly, typeof(DontRegisterMe), typeof(IDontRegisterMe), typeof(IHasMultipleImplementations), typeof(ClassOfInterfaceT));
             }
             catch (DependencyConfigurationException dependencyConfigurationException)
             {
-                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(2));
+                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(2), dependencyConfigurationException.ToString());
             }
         }
 
@@ -119,9 +128,23 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
             var ignoreList = new List<Type>(_ignoreList);
             ignoreList.Remove(typeof(IThatHasConcreteImplementationWithConstructorArgument));
             var container = new Container();
+
+            container.Register<IThatHasConcreteImplementationWithConstructorArgument>(() => new ConstructorArgumentString("hello"));
             DependencyRegistration.Register(container, this.GetType().Assembly, ignoreList.ToArray());
 
             var instance = container.GetInstance<IThatHasConcreteImplementationWithConstructorArgument>();
+            Assert.That(instance, Is.TypeOf<ConstructorArgumentString>());
+        }
+
+        [Test]
+        public void ShouldIgn()
+        {
+            var ignoreList = new List<Type>(_ignoreList);
+            ignoreList.Remove(typeof(IInterfaceOfT));
+            var container = new Container();
+
+            container.Register<IInterfaceOfT>(() => new ClassOfInterfaceT(1));
+            DependencyRegistration.Register(container, GetType().Assembly, ignoreList.ToArray());
         }
     }
 }
