@@ -47,15 +47,31 @@ namespace SimpleInjector.AssemblyScanner
 
             string assemblyName = assembly.GetName().Name;
             IList<Type> registeredInterfaces = new List<Type>();
+            var existingRegistrationsServiceTypes = container.GetCurrentRegistrations().Select(instanceProducer => instanceProducer.ServiceType).ToList();
 
-            IEnumerable<Type> registrations =
+            IList<Type> registrations =
                 assembly.GetExportedTypes()
                     .Where(type => !typesToIgnore.Contains(type))
+                    .Where(type => !existingRegistrationsServiceTypes.Contains(type))
                     .Where(type => type.Namespace != null)
                     .Where(type => type.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase))
                     .Where(type => type.GetInterfaces().Any())
-                    .Where(type => 
-                        type.GetInterfaces().Any(inter => !typesToIgnore.Contains(inter) && inter.Namespace != null && inter.Namespace.StartsWith(assemblyName)));
+                    .Where(type => type.GetInterfaces().Any(inter => !typesToIgnore.Contains(inter) && inter.Namespace != null && inter.Namespace.StartsWith(assemblyName)))
+                    .ToList();
+
+
+            // Ignore already registerd interfaces:
+            for (int i = registrations.Count() - 1; i >= 0; i--)
+            {
+                foreach (var registrationInterface in registrations[i].GetInterfaces())
+                {
+                    if (existingRegistrationsServiceTypes.Contains(registrationInterface))
+                    {
+                        registrations.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
 
             IList<string> validationErrors = new List<string>();
 
