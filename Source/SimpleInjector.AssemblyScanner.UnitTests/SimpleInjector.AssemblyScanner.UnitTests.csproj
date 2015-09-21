@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="DependencyRegistrationTests.cs" />
     <Compile Include="ExceptionTests.cs" />
+    <Compile Include="NamingConventionClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClasses.cs" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace SimpleInjector.AssemblyScanner.UnitTests
+﻿using System;
+
+namespace SimpleInjector.AssemblyScanner.UnitTests
 {
     public class AClass : IAClass
     {
@@ -85,6 +87,17 @@
 
     public class SomeObject
     {
+    }
 
+    public interface IAbc
+    {
+    }
+
+    public class Abc : IAbc, IComparable
+    {
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

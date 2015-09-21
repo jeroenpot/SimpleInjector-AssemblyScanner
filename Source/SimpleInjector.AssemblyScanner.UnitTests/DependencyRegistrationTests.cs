@@ -146,5 +146,49 @@ namespace SimpleInjector.AssemblyScanner.UnitTests
             container.Register<IInterfaceOfT>(() => new ClassOfInterfaceT(1));
             DependencyRegistration.Register(container, GetType().Assembly, ignoreList.ToArray());
         }
+
+        [Test]
+        public void ShouldGetClassWithMultipleInterfaces()
+        {
+            var container = new Container();
+            DependencyRegistration.Register(container, GetType().Assembly, _ignoreList.ToArray());
+
+            IAbc abc = container.GetInstance<IAbc>();
+
+            Assert.That(abc, Is.TypeOf<Abc>());
+        }
+
+        [Test]
+        public void ShouldGetClassThatMatchesNamingConvention()
+        {
+            var container = new Container();
+            DependencyRegistration.Register(container, GetType().Assembly, _ignoreList.ToArray());
+
+            var namingConventionClass = container.GetInstance<INamingConventionClass>();
+
+            Assert.That(namingConventionClass, Is.TypeOf<NamingConventionClass>());
+        }
+
+        [Test]
+        public void ShouldGetClassThatMatchesNamingConventionWhenOtherTypeIsRegisteredFirst()
+        {
+            var container = new Container();
+            DependencyRegistration.Register(container, GetType().Assembly, _ignoreList.ToArray());
+
+            var namingConventionClass = container.GetInstance<IOtherNamingConventionClass>();
+
+            Assert.That(namingConventionClass, Is.TypeOf<OtherNamingConventionClass>());
+        }
+
+        [Test]
+        public void ShouldGetClassThatMatchesNamingConventionWhenHasMultipleInterfaces()
+        {
+            var container = new Container();
+            DependencyRegistration.Register(container, GetType().Assembly, _ignoreList.ToArray());
+
+            var namingConventionClass = container.GetInstance<ICorrectNamingInterface>();
+
+            Assert.That(namingConventionClass, Is.TypeOf<CorrectNamingInterface>());
+        }
     }
 }
