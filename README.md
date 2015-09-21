@@ -4,9 +4,11 @@ SimpleInjector AssemblyScanner
 What is this repository for?
 -------------
 I was using simpleinjector for one of my projects and the default auto-registration mentioned in the [documentation](https://simpleinjector.readthedocs.org/en/latest/advanced.html#batch-registration).  did not fill all my needs. For example, what if your class has multiple interfaces (like IDisposable), then Single() isn't going to cut it.
-[![Build status](https://ci.appveyor.com/api/projects/status/080nvsbtt264y6bf?svg=true)](https://ci.appveyor.com/project/jeroenpot/simpleinjector-assemblyscanner)
-[![Coverage Status](https://coveralls.io/repos/jeroenpot/SimpleInjector-AssemblyScanner/badge.svg?branch=master&service=github)](https://coveralls.io/github/jeroenpot/SimpleInjector-AssemblyScanner?branch=master)
-[![NuGet downloads ](https://img.shields.io/nuget/dt/MsSqlHelper.svg)](https://www.nuget.org/packages/MsSqlHelper)
+
+Build status| Coverage Status| NuGet downloads
+----------- | -------------- | ---------------
+[![](https://ci.appveyor.com/api/projects/status/080nvsbtt264y6bf?svg=true)](https://ci.appveyor.com/project/jeroenpot/simpleinjector-assemblyscanner)|[![](https://coveralls.io/repos/jeroenpot/SimpleInjector-AssemblyScanner/badge.svg?branch=master&service=github)](https://coveralls.io/github/jeroenpot/SimpleInjector-AssemblyScanner?branch=master)|[![](https://img.shields.io/nuget/dt/Simpleinjector.AssemblyScanner.svg)](https://www.nuget.org/packages/SimpleInjector.AssemblyScanner/)
+
 
 How do i use it?
 -------------
