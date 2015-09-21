@@ -1,4 +1,6 @@
-﻿namespace SimpleInjector.AssemblyScanner.UnitTests
+﻿using System;
+
+namespace SimpleInjector.AssemblyScanner.UnitTests
 {
     public class AClass : IAClass
     {
@@ -32,11 +34,11 @@
     {
     }
 
-    public class DontRegisterMe : IDontRegisterMe
+    public class DoNotRegisterMe : IDoNotRegisterMe
     {
     }
 
-    public interface IDontRegisterMe
+    public interface IDoNotRegisterMe
     {
     }
 
@@ -61,15 +63,15 @@
     {
         public string SomeString { get; set; }
         // ReSharper disable once UnusedParameter.Local
-        public ConstructorArgumentString(string someString)
+        public ConstructorArgumentString(string value)
         {
-            SomeString = someString;
+            SomeString = value;
         }
     }
 
     public class ClassOfInterfaceT : IInterfaceOfT
     {
-        public ClassOfInterfaceT(int i)
+        public ClassOfInterfaceT(int value)
         {
             
         }
@@ -85,6 +87,17 @@
 
     public class SomeObject
     {
+    }
 
+    public interface IIAmAnInterface
+    {
+    }
+
+    public class AnotherClass : IIAmAnInterface, IComparable
+    {
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
