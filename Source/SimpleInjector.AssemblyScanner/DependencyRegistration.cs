@@ -189,19 +189,6 @@ namespace SimpleInjector.AssemblyScanner
                 return interfaceToUse;
             }
 
-            IList<Type> interfacesThatFolowNamingConvention = interfaces.Where(inter => inter.Name.Substring(1).Equals(type.Name)).ToList();
-
-            if (interfacesThatFolowNamingConvention.Count() == 1)
-            {
-                interfaceToUse = interfacesThatFolowNamingConvention.First();
-
-                LogWriter.WriteLine(string.Format(CultureInfo.InvariantCulture,
-                    "Registering interface [{0}] for type [{1}], because it follows the namingconvention IFoo -> Foo, but found multiple interfaces: {2}",
-                    interfaceToUse, type, foundInterfaces));
-                return interfaceToUse;
-            }
-
-
             validationErrors.Add(string.Format(CultureInfo.InvariantCulture, "Multiple interfaces found for [{0}] found: {1}", type, foundInterfaces));
 
             return null;
