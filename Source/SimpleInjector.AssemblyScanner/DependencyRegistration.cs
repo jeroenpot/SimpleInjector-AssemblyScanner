@@ -56,33 +56,7 @@ namespace SimpleInjector.AssemblyScanner
 
             RegisteredInterfacesWithTypes = new Dictionary<Type, Type>();
 
-            string assemblyName = assembly.GetName().Name;
-            
-            var existingRegistrationsServiceTypes = container.GetCurrentRegistrations().Select(instanceProducer => instanceProducer.ServiceType).ToList();
-
-            IList<Type> registrations =
-                assembly.GetExportedTypes()
-                    .Where(type => !typesToIgnore.Contains(type))
-                    .Where(type => !existingRegistrationsServiceTypes.Contains(type))
-                    .Where(type => type.Namespace != null)
-                    .Where(type => type.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase))
-                    .Where(type => type.GetInterfaces().Any())
-                    .Where(type => type.GetInterfaces().Any(inter => !typesToIgnore.Contains(inter) && inter.Namespace != null && inter.Namespace.StartsWith(assemblyName)))
-                    .ToList();
-
-
-            // Ignore already registerd interfaces:
-            for (int i = registrations.Count() - 1; i >= 0; i--)
-            {
-                foreach (var registrationInterface in registrations[i].GetInterfaces())
-                {
-                    if (existingRegistrationsServiceTypes.Contains(registrationInterface))
-                    {
-                        registrations.RemoveAt(i);
-                        break;
-                    }
-                }
-            }
+            var registrations = GetTypes(container, assembly, typesToIgnore);
 
             IList<string> validationErrors = new List<string>();
 
@@ -119,7 +93,7 @@ namespace SimpleInjector.AssemblyScanner
                             if (!registeredInterface.Key.Name.Substring(1).Equals(registeredInterface.Value.Name))
                             {
                                 // Neither of the interfaces matches naming convention.
-                                validationErrors.Add(string.Format("Multiple Implementations found for [{0}]",
+                                validationErrors.Add(string.Format(CultureInfo.InvariantCulture, "Multiple Implementations found for [{0}]",
                                     interfaceToUse));
                             }
                         }
@@ -135,6 +109,45 @@ namespace SimpleInjector.AssemblyScanner
             {
                 throw new DependencyConfigurationException(string.Join(Environment.NewLine, validationErrors), validationErrors);
             }
+        }
+
+        private static IList<Type> GetTypes(Container container, Assembly assembly, Type[] typesToIgnore)
+        {
+            string assemblyName = assembly.GetName().Name;
+
+            var existingRegistrationsServiceTypes =
+                container.GetCurrentRegistrations().Select(instanceProducer => instanceProducer.ServiceType).ToList();
+
+            IList<Type> registrations =
+                assembly.GetExportedTypes()
+                    .Where(type => !typesToIgnore.Contains(type))
+                    .Where(type => !existingRegistrationsServiceTypes.Contains(type))
+                    .Where(type => type.Namespace != null)
+                    .Where(type => type.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase))
+                    .Where(type => type.GetInterfaces().Any())
+                    .Where(
+                        type =>
+                            type.GetInterfaces()
+                                .Any(
+                                    inter =>
+                                        !typesToIgnore.Contains(inter) && inter.Namespace != null &&
+                                        inter.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
+
+
+            // Ignore already registerd interfaces:
+            for (int i = registrations.Count() - 1; i >= 0; i--)
+            {
+                foreach (var registrationInterface in registrations[i].GetInterfaces())
+                {
+                    if (existingRegistrationsServiceTypes.Contains(registrationInterface))
+                    {
+                        registrations.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            return registrations;
         }
 
         private static void Register(Container container, Type interfaceToUse, Type type)
@@ -189,7 +202,7 @@ namespace SimpleInjector.AssemblyScanner
             }
 
 
-            validationErrors.Add(string.Format("Multiple interfaces found for [{0}] found: {1}", type, foundInterfaces));
+            validationErrors.Add(string.Format(CultureInfo.InvariantCulture, "Multiple interfaces found for [{0}] found: {1}", type, foundInterfaces));
 
             return null;
         }
