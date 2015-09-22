@@ -30,10 +30,10 @@ Or get the nuget package
 Install-Package AssemblyScanner.SimpleInjector
 ```
 
-How can i find what types you are registered?
+How can i find what types are registered?
 -------------
 
-There is a logwriter class that outputs all the registerd classes with Debug.WriteLine. If you want other output, Implement your own ILogWriter and add this code before calling the Register Method:
+There is a logwriter class that outputs all the registerd classes with Debug.WriteLine. If you want other output, implement your own ILogWriter and add this code before calling the Register Method:
 
 ```C#
 DependencyRegistration.LogWriter = new MyOwnLogWriterImplementation();
