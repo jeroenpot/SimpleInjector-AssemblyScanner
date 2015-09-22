@@ -7,8 +7,8 @@
     <ProjectGuid>{3904428D-7126-457A-BF03-EC5CF6FECFCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleInjector.AssemblyScanner.UnitTests</RootNamespace>
-    <AssemblyName>SimpleInjector.AssemblyScanner.UnitTests</AssemblyName>
+    <RootNamespace>JeroenPot.SimpleInjector.AssemblyScanner.UnitTests</RootNamespace>
+    <AssemblyName>JeroenPot.SimpleInjector.AssemblyScanner.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -66,9 +66,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleInjector.AssemblyScanner\SimpleInjector.AssemblyScanner.csproj">
+    <ProjectReference Include="..\JeroenPot.SimpleInjector.AssemblyScanner\JeroenPot.SimpleInjector.AssemblyScanner.csproj">
       <Project>{a80c5468-9db9-4c5a-af8c-d3d3f61b1cd8}</Project>
-      <Name>SimpleInjector.AssemblyScanner</Name>
+      <Name>JeroenPot.SimpleInjector.AssemblyScanner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

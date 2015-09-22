@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SimpleInjector.AssemblyScanner
+namespace JeroenPot.SimpleInjector.AssemblyScanner
 {
     /// <summary>
     /// Exception that is thrown when registration fails.

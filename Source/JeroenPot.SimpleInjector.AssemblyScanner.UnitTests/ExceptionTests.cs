@@ -1,7 +1,7 @@
 ﻿using AutoTest.Exceptions;
 using NUnit.Framework;
 
-namespace SimpleInjector.AssemblyScanner.UnitTests
+namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 {
     [TestFixture]
     public class ExceptionTests

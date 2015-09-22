@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using SimpleInjector;
 
-namespace SimpleInjector.AssemblyScanner
+namespace JeroenPot.SimpleInjector.AssemblyScanner
 {
     /// <summary>
     /// Static helper class for scanning of assembly and automatic registration of classes and interfaces in the SimpleInjector container.

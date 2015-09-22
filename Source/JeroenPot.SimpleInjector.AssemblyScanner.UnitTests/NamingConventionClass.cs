@@ -1,4 +1,4 @@
-﻿namespace SimpleInjector.AssemblyScanner.UnitTests
+﻿namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 {
     public class NamingConventionClass : INamingConventionClass
     {

@@ -27,13 +27,13 @@ How do i get it?
 Clone this repository or copy the class DependencyRegistration.cs, this contains most of the logic.
 Or get the nuget package
 ```sh
-Install-Package SimpleInjector.AssemblyScanner
+Install-Package JeroenPot.SimpleInjector.AssemblyScanner
 ```
 
-How can i find what types you are registered?
+How can i find what types are registered?
 -------------
 
-There is a logwriter class that outputs all the registerd classes with Debug.WriteLine. If you want other output, Implement your own ILogWriter and add this code before calling the Register Method:
+There is a logwriter class that outputs all the registerd classes with Debug.WriteLine. If you want other output, implement your own ILogWriter and add this code before calling the Register Method:
 
 ```C#
 DependencyRegistration.LogWriter = new MyOwnLogWriterImplementation();
