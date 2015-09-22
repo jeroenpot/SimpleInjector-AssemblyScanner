@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScanner", "SimpleInjector.AssemblyScanner\SimpleInjector.AssemblyScanner.csproj", "{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner", "JeroenPot.SimpleInjector.AssemblyScanner\JeroenPot.SimpleInjector.AssemblyScanner.csproj", "{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInjector.AssemblyScanner.UnitTests", "SimpleInjector.AssemblyScanner.UnitTests\SimpleInjector.AssemblyScanner.UnitTests.csproj", "{3904428D-7126-457A-BF03-EC5CF6FECFCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests", "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.csproj", "{3904428D-7126-457A-BF03-EC5CF6FECFCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA3395D3-2040-4C0F-AAD0-67ACF37862A4}"
 	ProjectSection(SolutionItems) = preProject

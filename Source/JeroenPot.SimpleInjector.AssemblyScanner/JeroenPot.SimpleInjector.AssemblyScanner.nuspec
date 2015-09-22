@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>SimpleInjector.AssemblyScanner</id>
+    <id>JeroenPot.SimpleInjector.AssemblyScanner</id>
     <version>$version$</version>
-    <title>SimpleInjector AssemblyScanner</title>
+    <title>AssemblyScanner for SimpleInjector</title>
     <authors>Jeroen Pot</authors>
     <owners>Jeroen Pot</owners>
     <projectUrl>https://github.com/jeroenpot/SimpleInjector-AssemblyScanner</projectUrl>

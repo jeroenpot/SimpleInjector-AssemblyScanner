@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleInjector.AssemblyScanner.UnitTests
+namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 {
     public class AClass : IAClass
     {

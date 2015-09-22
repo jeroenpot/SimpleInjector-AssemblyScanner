@@ -1,4 +1,4 @@
-namespace SimpleInjector.AssemblyScanner
+namespace JeroenPot.SimpleInjector.AssemblyScanner
 {
     /// <summary>
     /// Interface for writing logmessage in this library.

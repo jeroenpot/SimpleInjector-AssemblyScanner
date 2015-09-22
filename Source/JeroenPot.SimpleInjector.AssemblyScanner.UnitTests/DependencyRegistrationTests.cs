@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using SimpleInjector;
 
-namespace SimpleInjector.AssemblyScanner.UnitTests
+namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 {
     [TestFixture]
     public class DependencyRegistrationTests

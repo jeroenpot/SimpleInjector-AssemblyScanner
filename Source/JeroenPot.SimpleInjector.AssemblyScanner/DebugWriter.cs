@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace SimpleInjector.AssemblyScanner
+namespace JeroenPot.SimpleInjector.AssemblyScanner
 {
     /// <summary>
     /// Log implementation that uses <see cref="Debug"/> to write lines.
