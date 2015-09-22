@@ -27,7 +27,7 @@ How do i get it?
 Clone this repository or copy the class DependencyRegistration.cs, this contains most of the logic.
 Or get the nuget package
 ```sh
-Install-Package AssemblyScanner.SimpleInjector
+Install-Package JeroenPot.SimpleInjector.AssemblyScanner
 ```
 
 How can i find what types are registered?
