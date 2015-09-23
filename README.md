@@ -7,7 +7,7 @@ I was using simpleinjector for one of my projects and the default auto-registrat
 
 Build status| Coverage Status| NuGet downloads
 ----------- | -------------- | ---------------
-[![](https://ci.appveyor.com/api/projects/status/080nvsbtt264y6bf?svg=true)](https://ci.appveyor.com/project/jeroenpot/simpleinjector-assemblyscanner)|[![](https://coveralls.io/repos/jeroenpot/SimpleInjector-AssemblyScanner/badge.svg?branch=master&service=github)](https://coveralls.io/github/jeroenpot/SimpleInjector-AssemblyScanner?branch=master)|[![](https://img.shields.io/nuget/dt/JeroenPot.SimpleInjector.AssemblyScanner.svg)](https://www.nuget.org/packages/SimpleInjector.AssemblyScanner/)
+[![](https://ci.appveyor.com/api/projects/status/080nvsbtt264y6bf?svg=true)](https://ci.appveyor.com/project/jeroenpot/simpleinjector-assemblyscanner)|[![](https://coveralls.io/repos/jeroenpot/SimpleInjector-AssemblyScanner/badge.svg?branch=master&service=github)](https://coveralls.io/github/jeroenpot/SimpleInjector-AssemblyScanner?branch=master)|[![](https://img.shields.io/nuget/dt/JeroenPot.SimpleInjector.AssemblyScanner.svg)](https://www.nuget.org/packages/JeroenPot.SimpleInjector.AssemblyScanner/)
 
 
 How do i use it?
