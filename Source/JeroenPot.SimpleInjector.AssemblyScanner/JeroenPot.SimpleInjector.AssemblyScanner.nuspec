@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>JeroenPot.SimpleInjector.AssemblyScanner</id>
     <version>$version$</version>
@@ -17,4 +17,7 @@
       <dependency id="SimpleInjector" version="2.0.0" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="Content\Configuration\SimpleInjectorBootstrapper.cs.pp" target="Content\Configuration\" />
+  </files>
 </package>
