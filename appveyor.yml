@@ -1,4 +1,4 @@
-version: 1.0.9.{build}
+version: 1.1.0.{build}
 skip_tags: true
 configuration: Release
 assembly_info:
@@ -11,7 +11,6 @@ build:
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
-  include_nuget_references: true
 environment:
     COVERALLS_REPO_TOKEN:  
        secure: tyeU+4O6GT+x8OeEvAD+h/0lMQ8/LEMUCyGgninXg3yE7NhXBvKYy6709qRia8sn
