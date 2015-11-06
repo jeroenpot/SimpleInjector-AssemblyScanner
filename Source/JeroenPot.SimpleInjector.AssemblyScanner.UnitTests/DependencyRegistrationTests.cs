@@ -180,5 +180,16 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             Assert.That(namingConventionClass, Is.TypeOf<CorrectNamingInterface>());
         }
+
+        [Test]
+        public void ShouldNotRegisterAbstractClass()
+        {
+
+            DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, _ignoreList.ToArray());
+
+            Assert.That(() => Container.GetInstance<IAbstractClass>(),
+                Throws.Exception.TypeOf<ActivationException>()
+                    .With.Message.EqualTo("No registration for type IAbstractClass could be found."));
+        }
     }
 }

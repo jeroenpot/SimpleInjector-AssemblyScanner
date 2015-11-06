@@ -125,6 +125,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
                     .Where(type => !existingRegistrationsServiceTypes.Contains(type))
                     .Where(type => type.Namespace != null)
                     .Where(type => type.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase))
+                    .Where(type => (type.Attributes & TypeAttributes.Abstract) != TypeAttributes.Abstract)
                     .Where(type => type.GetInterfaces().Any())
                     .Where(
                         type =>
@@ -133,6 +134,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
                                     inter =>
                                         !typesToIgnore.Contains(inter) && inter.Namespace != null &&
                                         inter.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase)))
+
                     .ToList();
 
 
