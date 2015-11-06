@@ -100,4 +100,14 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
             throw new NotImplementedException();
         }
     }
+
+    public abstract class AbstractClass : IAbstractClass
+    {
+        
+    }
+
+    public interface IAbstractClass
+    {
+        
+    }
 }
