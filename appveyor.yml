@@ -8,7 +8,6 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 before_build:
-  nuget sources update -Name nuget.org -Source https://api.nuget.org/v3/index.json
   nuget restore Source\JeroenPot.SimpleInjector.AssemblyScanner.sln
 build:
   publish_nuget: true
