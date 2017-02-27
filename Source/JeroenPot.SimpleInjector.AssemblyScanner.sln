@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40418.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner", "JeroenPot.SimpleInjector.AssemblyScanner\JeroenPot.SimpleInjector.AssemblyScanner.csproj", "{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner", "JeroenPot.SimpleInjector.AssemblyScanner\JeroenPot.SimpleInjector.AssemblyScanner.csproj", "{7C81B574-39CA-4187-BBA1-93319CF3CE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests", "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.csproj", "{3904428D-7126-457A-BF03-EC5CF6FECFCF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA3395D3-2040-4C0F-AAD0-67ACF37862A4}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests", "JeroenPot.SimpleInjector.AssemblyScanner.UnitTests\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.csproj", "{6FDC5ECB-60E4-4EC9-8220-A4CAD52C385D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A80C5468-9DB9-4C5A-AF8C-D3D3F61B1CD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3904428D-7126-457A-BF03-EC5CF6FECFCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C81B574-39CA-4187-BBA1-93319CF3CE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C81B574-39CA-4187-BBA1-93319CF3CE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C81B574-39CA-4187-BBA1-93319CF3CE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C81B574-39CA-4187-BBA1-93319CF3CE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FDC5ECB-60E4-4EC9-8220-A4CAD52C385D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FDC5ECB-60E4-4EC9-8220-A4CAD52C385D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FDC5ECB-60E4-4EC9-8220-A4CAD52C385D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FDC5ECB-60E4-4EC9-8220-A4CAD52C385D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
