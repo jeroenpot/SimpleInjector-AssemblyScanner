@@ -5,12 +5,12 @@ using System.Reflection;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimpleInjector.AssemblyScanner")]
+[assembly: AssemblyTitle("JeroenPot.SimpleInjector.AssemblyScanner")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SimpleInjector.AssemblyScanner")]
-[assembly: AssemblyCopyright("Copyright © Jeroen Pot 2015")]
+[assembly: AssemblyProduct("JeroenPot.SimpleInjector.AssemblyScanner")]
+[assembly: AssemblyCopyright("Copyright © Jeroen Pot 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
