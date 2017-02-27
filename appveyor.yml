@@ -18,7 +18,7 @@ environment:
     COVERALLS_REPO_TOKEN:  
        secure: tyeU+4O6GT+x8OeEvAD+h/0lMQ8/LEMUCyGgninXg3yE7NhXBvKYy6709qRia8sn
 after_test: 
-  - Source\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -mergeoutput -register:user -target:"Source\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" "-targetargs:""Source\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests\bin\Release\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.dll"" /noshadow" -output:opencoverCoverage.xml -excludebyfile:"*TestClasses.cs"
+  - Source\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -mergeoutput -register:user -target:"Source\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" "-targetargs:""Source\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests\bin\Release\JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.dll"" /noshadow" -output:opencoverCoverage.xml -filter:"+[*]* -[*]*FluentAssertions*" -excludebyfile:"*SampleUsage.cs;*Tests.cs"
   - Source\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken %COVERALLS_REPO_TOKEN% --commitBranch %APPVEYOR_REPO_BRANCH%
 deploy:
 - provider: NuGet
