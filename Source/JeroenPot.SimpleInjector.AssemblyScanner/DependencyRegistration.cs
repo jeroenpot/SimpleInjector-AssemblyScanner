@@ -34,6 +34,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
             LogWriter = new DebugWriter();
         }
 
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
         /// <summary>
         /// Registers the the specified container.
         /// </summary>
@@ -44,35 +45,36 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
         /// <exception cref="DependencyConfigurationException"></exception>
         /// <exception cref="ArgumentNullException">assembly</exception>
         public static void Register(Container container, Assembly assembly, params Type[] typesToIgnore)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             if (container == null)
             {
-                throw new ArgumentNullException("container");
+                throw new ArgumentNullException(nameof(container));
             }
 
             if (assembly == null)
             {
-                throw new ArgumentNullException("assembly");
+                throw new ArgumentNullException(nameof(assembly));
             }
 
             RegisteredInterfacesWithTypes = new Dictionary<Type, Type>();
 
             var registrations = GetTypes(container, assembly, typesToIgnore);
 
-            IList<string> validationErrors = new List<string>();
+            ValidationErrors validationErrors = new ValidationErrors();
 
             foreach (Type type in registrations)
             {
-                Type[] interfaces = type.GetInterfaces();
+                var interfaces = type.GetTypeInfo().ImplementedInterfaces.ToList();
 
-                Type interfaceToUse = null;
+                Type interfaceToUse;
 
-                if (interfaces.Length > 1)
+                if (interfaces.Count > 1)
                 {
                     interfaceToUse = InterfaceToUse(interfaces, type, validationErrors);
                     if (interfaceToUse != null)
                     {
-                        Register(container, interfaceToUse, type);
+                        Register(container, interfaceToUse, type, validationErrors);
                     }
                 }
                 else
@@ -85,7 +87,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
                         {
                             bool currentOverrideOption = container.Options.AllowOverridingRegistrations;
                             container.Options.AllowOverridingRegistrations = true;
-                            Register(container, interfaceToUse, type);
+                            Register(container, interfaceToUse, type, validationErrors);
                             container.Options.AllowOverridingRegistrations = currentOverrideOption;
                         }
                         else
@@ -94,21 +96,20 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
                             if (!registeredInterface.Key.Name.Substring(1).Equals(registeredInterface.Value.Name))
                             {
                                 // Neither of the interfaces matches naming convention.
-                                validationErrors.Add(string.Format(CultureInfo.InvariantCulture, "Multiple Implementations found for [{0}]",
-                                    interfaceToUse));
+                                validationErrors.Add($"Multiple Implementations found for [{interfaceToUse}]");
                             }
                         }
                     }
                     else
                     {
-                        Register(container, interfaceToUse, type);
+                        Register(container, interfaceToUse, type, validationErrors);
                     }
                 }
             }
 
-            if (validationErrors.Any())
+            if (validationErrors.Errors.Any())
             {
-                throw new DependencyConfigurationException(string.Join(Environment.NewLine, validationErrors), validationErrors);
+                throw new DependencyConfigurationException(string.Join(Environment.NewLine, validationErrors.Errors.Select(error => error.ErrorMessage)), validationErrors);
             }
         }
 
@@ -120,28 +121,24 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
                 container.GetCurrentRegistrations().Select(instanceProducer => instanceProducer.ServiceType).ToList();
 
             IList<Type> registrations =
-                assembly.GetExportedTypes()
+                assembly.ExportedTypes
                     .Where(type => !typesToIgnore.Contains(type))
                     .Where(type => !existingRegistrationsServiceTypes.Contains(type))
                     .Where(type => type.Namespace != null)
                     .Where(type => type.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase))
-                    .Where(type => (type.Attributes & TypeAttributes.Abstract) != TypeAttributes.Abstract)
-                    .Where(type => type.GetInterfaces().Any())
-                    .Where(
-                        type =>
-                            type.GetInterfaces()
-                                .Any(
-                                    inter =>
-                                        !typesToIgnore.Contains(inter) && inter.Namespace != null &&
-                                        inter.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase)))
-
+                    .Where(type => (type.GetTypeInfo().Attributes & TypeAttributes.Abstract) != TypeAttributes.Abstract)
+                    .Where(type => type.GetTypeInfo().ImplementedInterfaces.Any())
+                    .Where(type => type.GetTypeInfo().ImplementedInterfaces.Any(
+                        inter =>
+                            !typesToIgnore.Contains(inter) && inter.Namespace != null &&
+                            inter.Namespace.StartsWith(assemblyName, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
 
 
             // Ignore already registerd interfaces:
-            for (int i = registrations.Count() - 1; i >= 0; i--)
+            for (int i = registrations.Count - 1; i >= 0; i--)
             {
-                foreach (var registrationInterface in registrations[i].GetInterfaces())
+                foreach (var registrationInterface in registrations[i].GetTypeInfo().ImplementedInterfaces)
                 {
                     if (existingRegistrationsServiceTypes.Contains(registrationInterface))
                     {
@@ -153,46 +150,48 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner
             return registrations;
         }
 
-        private static void Register(Container container, Type interfaceToUse, Type type)
+        private static void Register(Container container, Type interfaceToUse, Type type, ValidationErrors validationErrors)
         {
-            string message = string.Format(CultureInfo.InvariantCulture,
-                "Registering interface [{0}] with concrete implementation [{1}]", interfaceToUse, type);
-
-            LogWriter.WriteLine(message);
-            container.Register(interfaceToUse, type, Lifestyle.Transient);
-
-            if (RegisteredInterfacesWithTypes.ContainsKey(interfaceToUse))
+            try
             {
-                RegisteredInterfacesWithTypes[interfaceToUse] = type;
+                string message = $"Registering interface [{interfaceToUse}] with concrete implementation [{type}]";
+
+                LogWriter.WriteLine(message);
+                container.Register(interfaceToUse, type, Lifestyle.Transient);
+
+                if (RegisteredInterfacesWithTypes.ContainsKey(interfaceToUse))
+                {
+                    RegisteredInterfacesWithTypes[interfaceToUse] = type;
+                }
+                else
+                {
+                    RegisteredInterfacesWithTypes.Add(interfaceToUse, type);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                RegisteredInterfacesWithTypes.Add(interfaceToUse, type);
+
+                validationErrors.Add($"Failed to register interface {interfaceToUse} with concrete type {type}. Exception that was caught said: [{exception.Message}]", exception);
             }
-            
         }
 
-        private static Type InterfaceToUse(Type[] interfaces, Type type, IList<string> validationErrors)
+        private static Type InterfaceToUse(IEnumerable<Type> interfaces, Type type, ValidationErrors validationErrors)
         {
-            Type interfaceToUse;
-
             string foundInterfaces = string.Join(", ", interfaces.Select(i => i.ToString()));
 
             IList<Type> interfacesOfSameNamespace =
                 interfaces.Where(inter => inter.Namespace != null && inter.Namespace.Equals(type.Namespace))
                     .ToList();
 
-            if (interfacesOfSameNamespace.Count() == 1)
+            if (interfacesOfSameNamespace.Count == 1)
             {
-                interfaceToUse = interfacesOfSameNamespace.First();
+                var interfaceToUse = interfacesOfSameNamespace.First();
 
-                LogWriter.WriteLine(string.Format(CultureInfo.InvariantCulture,
-                    "Registering interface [{0}] for type [{1}], because the namespace matches. but found multiple interfaces: {2}",
-                    interfaceToUse, type, foundInterfaces));
+                LogWriter.WriteLine($"Registering interface [{interfaceToUse}] for type [{type}], because the namespace matches. but found multiple interfaces: {foundInterfaces}");
                 return interfaceToUse;
             }
 
-            validationErrors.Add(string.Format(CultureInfo.InvariantCulture, "Multiple interfaces found for [{0}] found: {1}", type, foundInterfaces));
+            validationErrors.Add($"Multiple interfaces found for [{type}] found: {foundInterfaces}");
 
             return null;
         }

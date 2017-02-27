@@ -1,20 +1,18 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimpleInjector.AssemblyScanner.UnitTests")]
+[assembly: AssemblyTitle("JeroenPot.SimpleInjector.AssemblyScanner.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SimpleInjector.AssemblyScanner.UnitTests")]
-[assembly: AssemblyCopyright("Copyright © Jeroen Pot 2015")]
+[assembly: AssemblyProduct("JeroenPot.SimpleInjector.AssemblyScanner.UnitTests")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: CLSCompliant(true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -22,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("eb620824-d706-4ac3-b933-8a64008d8a49")]
+[assembly: Guid("6fdc5ecb-60e4-4ec9-8220-a4cad52c385d")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using SimpleInjector;
 
@@ -34,46 +35,42 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             IAClass aClass = Container.GetInstance<IAClass>();
 
-            Assert.That(aClass, Is.InstanceOf<AClass>());
+            aClass.Should().BeOfType<AClass>();
         }
 
         [Test]
         public void ShouldThrowExceptionWhenMultipleInterfaceImplementations()
         {
-            try
-            {
-                DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly);
-                Assert.Fail();
-            }
-            catch (DependencyConfigurationException dependencyConfigurationException)
-            {
-                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(4));
-            }
+            Action action = () => DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly);
+
+            var dependencyConfigurationException = action.ShouldThrow<DependencyConfigurationException>().Which;
+
+            dependencyConfigurationException.ValidationErrors.Errors.Should().HaveCount(5);
+            dependencyConfigurationException.Message.Should().Contain("Multiple Implementations found for [JeroenPot.SimpleInjector.AssemblyScanner.UnitTests.IBClass]");
         }
 
         [Test]
         public void ShouldNotRegisterAnyClassOfInterfaceIDoNotRegisterMe()
         {
-            var ignoreList = new List<Type>(_ignoreList);
-            ignoreList.Add(typeof(IDoNotRegisterMe));
+            var ignoreList = new List<Type>(_ignoreList) { typeof(IDoNotRegisterMe) };
             DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, ignoreList.ToArray());
 
-            Assert.That(() => Container.GetInstance<IDoNotRegisterMe>(),
-                Throws.Exception.TypeOf<ActivationException>()
-                    .With.Message.EqualTo("No registration for type IDoNotRegisterMe could be found."));
+            Action action = () => Container.GetInstance<IDoNotRegisterMe>();
+
+            action.ShouldThrow<ActivationException>()
+                .WithMessage("No registration for type IDoNotRegisterMe could be found.");
         }
 
         [Test]
         public void ShouldNotRegisterInstanceOfDoNotRegisterMe()
         {
-            var ignoreList = new List<Type>(_ignoreList);
-            ignoreList.Add(typeof(DoNotRegisterMe));
-
+            var ignoreList = new List<Type>(_ignoreList) { typeof(DoNotRegisterMe) };
             DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, ignoreList.ToArray());
 
-            Assert.That(() => Container.GetInstance<IDoNotRegisterMe>(),
-                Throws.Exception.TypeOf<ActivationException>()
-                    .With.Message.EqualTo("No registration for type IDoNotRegisterMe could be found."));
+            Action action = () => Container.GetInstance<IDoNotRegisterMe>();
+
+            action.ShouldThrow<ActivationException>()
+                .WithMessage("No registration for type IDoNotRegisterMe could be found.");
         }
 
         [Test]
@@ -86,35 +83,35 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
             DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, ignoreList.ToArray());
 
             IHasMultipleImplementations instance = Container.GetInstance<IHasMultipleImplementations>();
-            Assert.That(instance, Is.TypeOf<SecondImplementation>());
+            instance.Should().BeOfType<SecondImplementation>();
         }
 
         [Test]
         public void ShouldHandleGivingBothImplementationAndInterfaceAsIgnoreParameters()
         {
-            try
-            {
-                DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, typeof(DoNotRegisterMe), typeof(IDoNotRegisterMe), typeof(IHasMultipleImplementations), typeof(ClassOfInterfaceT));
-            }
-            catch (DependencyConfigurationException dependencyConfigurationException)
-            {
-                Assert.That(dependencyConfigurationException.ValidationErrors, Has.Count.EqualTo(2), dependencyConfigurationException.ToString());
-            }
+            Action action =
+                () =>
+                    DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly,
+                        typeof(DoNotRegisterMe), typeof(IDoNotRegisterMe), typeof(IHasMultipleImplementations),
+                        typeof(ClassOfInterfaceT), typeof(IThatHasConcreteImplementationWithConstructorArgument));
+
+            action.ShouldThrow<DependencyConfigurationException>().And.ValidationErrors.Errors.Should().HaveCount(2);
         }
 
         [Test]
         public void ShouldThrowArgumentNullExceptionForContainer()
         {
-            Assert.That(() =>
-                DependencyRegistration.Register(null, typeof(DependencyRegistrationTests).Assembly,
-                    _ignoreList.ToArray()), Throws.Exception.TypeOf<ArgumentNullException>());
+            Action action = () => DependencyRegistration.Register(null, typeof(DependencyRegistrationTests).Assembly, _ignoreList.ToArray());
+
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
         public void ShouldThrowExceptionWhenAssemblyIsNull()
         {
-            Assert.That(() => DependencyRegistration.Register(Container, null),
-                Throws.Exception.TypeOf<ArgumentNullException>());
+            Action action = () => DependencyRegistration.Register(Container, null);
+
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
@@ -124,10 +121,11 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
             ignoreList.Remove(typeof(IThatHasConcreteImplementationWithConstructorArgument));
 
             Container.Register<IThatHasConcreteImplementationWithConstructorArgument>(() => new ConstructorArgumentString("hello"));
-            DependencyRegistration.Register(Container, this.GetType().Assembly, ignoreList.ToArray());
+            DependencyRegistration.Register(Container, GetType().Assembly, ignoreList.ToArray());
 
             var instance = Container.GetInstance<IThatHasConcreteImplementationWithConstructorArgument>();
-            Assert.That(instance, Is.TypeOf<ConstructorArgumentString>());
+
+            instance.Should().BeOfType<ConstructorArgumentString>();
         }
 
         [Test]
@@ -148,7 +146,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             IIAmAnInterface abc = container.GetInstance<IIAmAnInterface>();
 
-            Assert.That(abc, Is.TypeOf<AnotherClass>());
+            abc.Should().BeOfType<AnotherClass>();
         }
 
         [Test]
@@ -158,7 +156,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             var namingConventionClass = Container.GetInstance<INamingConventionClass>();
 
-            Assert.That(namingConventionClass, Is.TypeOf<NamingConventionClass>());
+            namingConventionClass.Should().BeOfType<NamingConventionClass>();
         }
 
         [Test]
@@ -168,7 +166,7 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             var namingConventionClass = Container.GetInstance<IOtherNamingConventionClass>();
 
-            Assert.That(namingConventionClass, Is.TypeOf<OtherNamingConventionClass>());
+            namingConventionClass.Should().BeOfType<OtherNamingConventionClass>();
         }
 
         [Test]
@@ -178,18 +176,18 @@ namespace JeroenPot.SimpleInjector.AssemblyScanner.UnitTests
 
             var namingConventionClass = Container.GetInstance<ICorrectNamingInterface>();
 
-            Assert.That(namingConventionClass, Is.TypeOf<CorrectNamingInterface>());
+            namingConventionClass.Should().BeOfType<CorrectNamingInterface>();
         }
 
         [Test]
         public void ShouldNotRegisterAbstractClass()
         {
-
             DependencyRegistration.Register(Container, typeof(DependencyRegistrationTests).Assembly, _ignoreList.ToArray());
 
-            Assert.That(() => Container.GetInstance<IAbstractClass>(),
-                Throws.Exception.TypeOf<ActivationException>()
-                    .With.Message.EqualTo("No registration for type IAbstractClass could be found."));
+            Action action = () => Container.GetInstance<IAbstractClass>();
+
+            action.ShouldThrow<ActivationException>()
+                .WithMessage("No registration for type IAbstractClass could be found.");
         }
     }
 }

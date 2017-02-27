@@ -14,10 +14,11 @@
     <copyright>Copyright 2015</copyright>
     <tags>SimpleInjector,auto,autoscan,autoregister,assemblyscanner</tags>
     <dependencies>
-      <dependency id="SimpleInjector" version="2.0.0" />
+      <dependency id="SimpleInjector" version="3.3.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Content\Configuration\SimpleInjectorBootstrapper.cs.pp" target="Content\Configuration\" />
+    <file src="bin\$configuration$\JeroenPot.SimpleInjector.AssemblyScanner.dll" target="lib\netstandard1.0\AssemblyScanner.dll" />
+    <file src="bin\$configuration$\JeroenPot.SimpleInjector.AssemblyScanner.xml" target="lib\netstandard1.0\AssemblyScanner.xml" />
   </files>
 </package>
