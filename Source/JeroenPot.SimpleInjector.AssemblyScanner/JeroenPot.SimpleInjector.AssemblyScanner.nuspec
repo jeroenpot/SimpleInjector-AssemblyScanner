@@ -3,7 +3,7 @@
   <metadata>
     <id>JeroenPot.SimpleInjector.AssemblyScanner</id>
     <version>$version$</version>
-    <title>A title...</title>
+    <title>AssemblyScanner for SimpleInjector</title>
     <authors>Jeroen Pot</authors>
     <owners>Jeroen Pot</owners>
     <projectUrl>https://github.com/jeroenpot/SimpleInjector-AssemblyScanner</projectUrl>
